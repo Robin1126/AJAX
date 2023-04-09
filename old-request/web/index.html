@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>演示传统请求和传统请求的缺点</title>
+</head>
+<body>
+<!--目前已经学会的4种发送请求的方式-->
+<!--直接在浏览器地址栏上面输入url-->
+<!--超链接-->
+<a href="/old/request">传统请求：超链接</a>
+
+<!--form表单-->
+<form action="/old/request" method="get">
+    <input type="submit" value="传统请求：form表单提交">
+</form>
+
+<!--通过JS代码来发送-->
+<input type="button" value="传统请求：通过JS代码发送请求" onclick="sendRequest()">
+
+<script type="text/javascript">
+    sendRequest = function () {
+        // 发送请求
+        // 这个是BOM编程，控制的是浏览器视窗
+        // window.location.href = ""
+        // 这个是DOM，就是浏览器内容，网页中的
+        document.location.href = "/old/request"
+    }
+</script>
+<!--目前这种方式不好的地方是，会清空原来页面上的html，重新加载一个新的页面
+比如采用旧的方式登录账户，会让已经缓冲好的视频全部丢失
+如果服务器处理很慢，用户就要等，这样的体验出现了间断-->
+<!--AJAX可以通过XMLHttpRequest对象发送请求，这个是浏览器内置的对象。这种请求可以做到不刷新整个页面，只更新浏览器的局部，类似浏览器内部的一个线程
+这就是异步处理，可以让服务器同时处理多个AJAX请求，类似于多线程并发-->
+<!--响应AJAX请求的三种数据：普通文本，XML字符串，JSON-->
+<!--前端解析AJAX请求的响应，实现局部刷新-->
+</body>
+</html>
