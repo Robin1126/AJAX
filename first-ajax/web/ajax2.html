@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax2 request</title>
+</head>
+<body>
+
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("Btn").onclick = function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    if (this.status == 404) {
+                        alert("找不到资源！");
+                    } else if (this.status == 500) {
+                        alert("服务器出错");
+                    } else if (this.status == 200) {
+                        // responseText是以普通文本的形式获取响应的内容
+                        // innerHTML是js语法，使用html语法来解释执行
+                        document.getElementById("mySpan").innerHTML = this.responseText;
+                    } else {
+                        alert(this.status);
+                    }
+                }
+            }
+            // 开启通道
+            // 使用变量实现动态发送get请求
+            // post请求不会走缓存，get请求存在浏览器缓存当中，这个是http协议当中规定的，但现在浏览器都不走缓存了
+            // 如果添加一个时间戳，可以使得每次发送的get请求都不一样,可以用来解决低版本ie浏览器get请求走缓存，从而不更新服务器内容的问题
+            // 随机数也可以，但是可能一样
+            var usercode = document.getElementById("usercode").value;
+            var username = document.getElementById("username").value;
+            var t = new Date().getTime();
+            xhr.open("GET", "/first/ajaxrequest2?t=" + t + "&usercode=" + usercode + "&username=" + username, true);
+            // 发送请求
+            xhr.send();
+        }
+    }
+</script>
+username <input id="username" type="text"><br>
+usercode <input id="usercode" type="text"><br>
+<button id="Btn">发送ajax请求</button>
+<br>
+<span id="mySpan"></span>
+</body>
+</html>
