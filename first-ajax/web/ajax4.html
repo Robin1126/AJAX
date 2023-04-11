@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>检测用户名</title>
+</head>
+
+<script type="text/javascript">
+    window.onload = function () {
+
+        document.getElementById("username").onfocus = function () {
+            document.getElementById("myspan").innerHTML = "";
+        }
+
+        document.getElementById("username").onblur = function () {
+            // 发送ajax请求四部曲
+            // 1.建立对象
+            var xhr = new XMLHttpRequest();
+
+            // 2.回调函数
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        document.getElementById("myspan").innerHTML = xhr.responseText;
+                    } else {
+                        alert(this.status);
+                    }
+                }
+            }
+            // 3.开启通道
+            xhr.open("POST","/first/ajaxrequest4");
+
+            // 4.发送请求
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+            var username = document.getElementById("username").value;
+            xhr.send("username=" + username);
+
+        }
+    }
+</script>
+
+<body>
+用户名：<input type="text" id="username" name="username">
+<span id="myspan"></span>
+<br>
+密码：<input type="password" id="password" name="password"><br>
+<button type="button" id="btn">提交</button>
+</body>
+</html>
