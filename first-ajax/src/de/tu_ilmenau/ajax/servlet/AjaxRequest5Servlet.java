@@ -21,23 +21,32 @@ import java.util.List;
 public class AjaxRequest5Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        List<Student> list = new ArrayList<>();
-        list = new StudentsDaoImpl().selectAll();
+
+        List<Student> list = new StudentsDaoImpl().selectAll();
 
         // 能不能后端不写html代码，只是返回数据呢？
         // 可以，使用json或者xml进行数据交换，前端来负责绘制表格
+        StringBuilder jsonStr = new StringBuilder();
+        jsonStr.append("[");
         for (Student s : list
         ) {
-            out.print("<tr align='center'>");
+ /*           out.print("<tr align='center'>");
             out.print("    <td> " + s.getId() + "</td>");
             out.print("    <td> " + s.getName() + "</td>");
             out.print("    <td>" + s.getAge() + "</td>");
             out.print(" <td>" + s.getAddr() + " </td>");
-            out.print("  </tr>");
+            out.print("  </tr>");*/
+            // 拼接HTML
+            // 格式大概是[{属性名：属性值},{属性名：属性值},{属性名：属性值}...]
+            jsonStr.append("{\"id\":" + s.getId() + ",\"name\":\"" + s.getName() + "\",\"age\":" + s.getAge() + ",\"addr\":\"" + s.getAddr() + "\"}");
+            jsonStr.append(",");
         }
+        jsonStr.deleteCharAt(jsonStr.length() - 1);
+        jsonStr.append("]");
+        out.print(jsonStr);
     }
 }

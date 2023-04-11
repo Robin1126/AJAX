@@ -15,7 +15,26 @@
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
           if (xhr.status == 200) {
-            document.getElementById("stubody").innerHTML = xhr.responseText;
+              // 将json格式的字符串转换成json对象
+            // document.getElementById("stubody").innerHTML = xhr.responseText;
+
+              // 解析数据
+              var stuList = JSON.parse(this.responseText); // 是一个数组，并且数组中有多个json
+
+              // 准备好一个空串html，进行遍历循环，用来输出
+              var html = "";
+
+              // 从stuList当中取出对象
+              for (var i = 0; i < stuList.length; i++) {
+                  var stu = stuList[i];
+                  html += "<tr align='center'>";
+                  html += "<td>"+stu.id+"</td>";
+                  html += "<td>"+stu.name+"</td>";
+                  html += "<td>"+stu.age+"</td>";
+                  html += "<td>"+stu.addr+"</td>";
+                  html += "</tr>";
+              }
+              document.getElementById("stubody").innerHTML = html;
           } else {
             alert(xhr.status);
           }
