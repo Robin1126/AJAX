@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发送ajax请求，显示学生列表</title>
+</head>
+<body>
+
+<script type="text/javascript">
+  window.onload = function () {
+    document.getElementById("btn").onclick = function () {
+      // 1. 创建核心对象
+      var xhr = new XMLHttpRequest();
+      // 2. 绑定回调函数
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            document.getElementById("stubody").innerHTML = xhr.responseText;
+          } else {
+            alert(xhr.status);
+          }
+        }
+      }
+      // 3. 开启通道
+      xhr.open("GET", "/first/ajaxrequest5", true);
+      // 4. 发送请求
+      // xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+      xhr.send();
+    }
+  }
+</script>
+
+<input type="button" value="显示学员列表" id="btn">
+
+<table width="50%" border="1px">
+  <tr>
+    <th>序号</th>
+    <th>姓名</th>
+    <th>年龄</th>
+    <th>住址</th>
+  </tr>
+  <tbody id="stubody">
+ <!-- <tr>
+    <td>1</td>
+    <td>张三</td>
+    <td>20</td>
+    <td>北京大兴区</td>
+  </tr>-->
+  </tbody>
+</table>
+
+</body>
+</html>
