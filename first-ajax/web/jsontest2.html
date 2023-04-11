@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>json test2</title>
+</head>
+<body>
+<!--从后端java程序中返回的是json格式的字符串，如何把json格式的字符串转换成json对象呢？-->
+
+<script type="text/javascript">
+  var user = {
+    "username" : "布布",
+    "password" : "1126"
+  }
+
+  alert(user.username + "," + user.password);
+
+  // 从服务器返回的是一个json格式的字符串
+  var fromJavaServerJsonStr = "{\"usercode\" : 111, \"age\" : 20}"
+
+  // 如何转换呢？
+  // 1. 使用eval函数，在js语言中讲过 eval（string）可以将括号中的string搞成脚本语言运行
+  // 2. 第二种方式：调用JavaScript语言中的内置对象JSON的一个方法parse JSON全部都是大写
+  var jsonobj = JSON.parse(fromJavaServerJsonStr);
+  alert(jsonobj.usercode + "," + jsonobj.age);
+
+
+</script>
+</body>
+</html>
