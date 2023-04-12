@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>xml格式交换数据</title>
+</head>
+<body>
+
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("btn").onclick = function () {
+           // 创建对象
+            var xhr = new XMLHttpRequest();
+            // 绑定函数
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        // 响应了一个xml对象，怎么接收呢？
+                        // 使用XMLHTTPRequest对象的responseXML属性，接收返回之后，可以自动封装成document对象 文档对象
+                        var xmlDoc = this.responseXML;
+                        // console.log(xmlDoc);
+                        // 获取一个数组，里面都是student对象,byTagName来通过标签获取
+                        var students = xmlDoc.getElementsByTagName("student");
+                        var html = "";
+                        // console.log(students[0].nodeName);
+                        for (var i = 0; i < students.length; i++) {
+                            var student = students[i];
+                            // 获取<student>下的所有子元素
+                            var child = student.childNodes;
+                            // 开始html拼串
+                            html += "<tr align='center'>"
+                            for (var j = 0; j < child.length; j++) {
+                                var node = child[j];
+                                if (node.nodeName == "id") {
+                                    // console.log("id == " + node.textContent);
+                                    html += "<td>"+node.textContent+"</td>"
+                                }
+                                if (node.nodeName == "username") {
+                                    // console.log("username == " + node.textContent);
+                                    html += "<td>"+node.textContent+"</td>"
+                                }
+                                if (node.nodeName == "password") {
+                                    // console.log("password == " + node.textContent);
+                                    html += "<td>"+node.textContent+"</td>"
+                                }
+                            }
+                            html += "</tr>";
+                        }
+                        // 记得最后要绑定tbody去显示
+                        document.getElementById("body").innerHTML = html;
+                    } else {
+                        alert(xhr.status);
+                    }
+                }
+            }
+            // 建立连接通道,get请求添加一个时间戳
+            xhr.open("GET","/first/xml?t=" + new Date().getTime(),true);
+            // 发送请求
+            xhr.send();
+        }
+    }
+</script>
+
+<button id="btn">显示用户列表</button>
+<table width = "500px" border = 1px >
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>密码</th>
+    </tr>
+    </thead>
+    <tbody id="body">
+
+    </tbody>
+   <!-- <tr align="center">
+        <td>1</td>
+        <td>张三</td>
+        <td>123</td>
+    </tr>-->
+</table>
+</body>
+</html>
