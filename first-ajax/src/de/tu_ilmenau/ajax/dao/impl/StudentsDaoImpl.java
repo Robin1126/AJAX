@@ -43,7 +43,6 @@ public class StudentsDaoImpl implements StudentsDao {
             DBUtil.close(conn, ps, rs);
         }
 
-
         return list;
     }
 }

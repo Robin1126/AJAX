@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AJAX.iml" filepath="$PROJECT_DIR$/AJAX.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fastjson/fastjson.iml" filepath="$PROJECT_DIR$/fastjson/fastjson.iml" />
       <module fileurl="file://$PROJECT_DIR$/first-ajax/first-ajax.iml" filepath="$PROJECT_DIR$/first-ajax/first-ajax.iml" />
       <module fileurl="file://$PROJECT_DIR$/old-request/old-request.iml" filepath="$PROJECT_DIR$/old-request/old-request.iml" />
     </modules>
