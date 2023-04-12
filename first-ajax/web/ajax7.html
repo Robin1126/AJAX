@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>演示ajax异步和同步</title>
+</head>
+<body>
+<script type="text/javascript">
+  window.onload = function () {
+    document.getElementById("btn1").onclick = function () {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            document.getElementById("div1").innerHTML = xhr.responseText;
+          } else {
+            alert(xhr.status);
+          }
+        }
+      }
+      xhr.open("GET","/first/ajaxrequest7?t=" + new Date().getTime(), true); // 允许异步
+      xhr.send();
+    }
+
+    document.getElementById("btn2").onclick = function () {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            document.getElementById("div2").innerHTML = xhr.responseText;
+          } else {
+            alert(xhr.status);
+          }
+        }
+      }
+      xhr.open("GET","/first/ajaxrequest8?t=" + new Date().getTime(), false); // 不允许异步，相当于整个浏览器锁住了
+      xhr.send();
+    }
+  }
+</script>
+
+<button id="btn1">ajax请求1</button>
+
+<div id="div1"></div>
+
+<button id="btn2">ajax请求2</button>
+
+<div id="div2"></div>
+
+</body>
+</html>
