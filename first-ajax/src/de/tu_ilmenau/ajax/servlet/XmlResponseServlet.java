@@ -25,6 +25,18 @@ public class XmlResponseServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         ArrayList<Account> list = new UsernameDaoImp().selectAll();
+        /*
+        xml格式的数据传输，基本上都是标签
+            <students>
+                <student>
+                    <id>1</id>
+                    <name>bubu</name>
+                    <password>123</password>
+                </student>
+            </students>
+         */
+
+
 
         // 开始拼串
         StringBuilder xml = new StringBuilder();
