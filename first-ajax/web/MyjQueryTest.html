@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试自己手动写的jQuery好不好用</title>
+</head>
+<body>
+<!--引入自己的jQuery库-->
+<script type="text/javascript" src="/first/js/jQuery_1.0.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+    $("#btn1").click(function () {
+      // 发送ajax请求
+      $.ajax({
+        method : "GET",
+        url : "/first/ajaxrequest9",
+        async : true,
+        data : "username=" + $("#username").val(),
+        success : function (json) {
+          $("#div1").html(json.username);
+        }
+      })
+    })
+  })
+</script>
+
+
+<button id="btn1">发送ajax get请求</button><br>
+用户名:<input type="text" id="username"><br>
+<div id="div1"></div>
+
+</body>
+</html>

@@ -28,4 +28,16 @@ public class AjaxRequest9Servlet extends HttpServlet {
         // 响应一个json {"username":"bubu"}
         out.print("{\"username\":\"" + username + "\"}");
     }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        String username = request.getParameter("username");
+        out.print("{\"username\" : \"" + username + "\"}");
+
+    }
 }

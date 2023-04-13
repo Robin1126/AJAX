@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>省市联动</title>
+</head>
+<body>
+<!--引入自己编写的jQuery-->
+<script type="text/javascript" src="js/jQuery_1.0.js"></script>
+
+<script type="text/javascript">
+    // 发送ajax请求,获取所有的省份.省份的特点是pcode是null
+    $(function () {
+        // 页面加载完毕以后,就直接发送ajax请求了
+        $.ajax({
+            method: "get",
+            url: "/ajax/listArea",
+            async: true,
+            data: "t=" + new Date().getTime(),
+            success: function (jsonArr) {
+                // json应该是 [{"code":"001","name":"广东省"},{"code":"002","name":"湖南省"},{"code":"003","name":"台湾省"}]
+                // 以上格式的json是我们希望服务器返回解析出来的
+                // 取出对应的数据,放到option标签里面
+                // 拼接html
+                var html = "<option value=''>---请选择一个省份---</option>"
+                for (var i = 0; i < jsonArr.length; i++) {
+                    // 每一项都是一个区域对象
+                    var area = jsonArr[i];
+                    html += "<option value='" + area.code + "'>" + area.name + "</option>"
+                }
+                // 拼接完毕之后,放到对应的标签里面
+                $("#province").html(html);
+            }
+        })
+
+    })
+</script>
+<!--构造下拉列表,动态展示-->
+<select id="province">
+    <!--<option value="">&#45;&#45;请选择省份&#45;&#45;</option>
+    <option value="001">广东省</option>
+    <option value="002">湖南省</option>-->
+
+</select>
+
+</body>
+</html>
