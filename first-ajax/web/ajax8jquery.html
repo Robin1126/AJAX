@@ -36,7 +36,7 @@
             }
         }
 
-        // 页面加载完毕之后，加载函数
+        // 页面加载完毕之后，加载函数,如果传入的是函数的话
         if (typeof selector == "function") {
             // 当这个选择器是一个函数的时候，使它在页面加载完成的时候执行
             window.onload = selector;
