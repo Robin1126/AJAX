@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>将ajax代码封装到jQuery当中</title>
+</head>
+<body>
+<!--导入js文件-->
+<script type="text/javascript" src="js/jQuery_1.0.js"></script>
+<script type="text/javascript">
+ window.onload = function () {
+    document.getElementById("btn").onclick = function () {
+      /*var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+              // 假设服务器返回的都是json
+              var jsonObj = JSON.parse(this.responseText);
+              // 处理json
+              document.getElementById("mydiv").innerHTML = jsonObj.username;
+          } else {
+            alert(xhr.status);
+          }
+        }
+      }
+      xhr.open("POST","/first/ajaxrequest9",true);
+
+      xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+      var username = document.getElementById("username").value;
+      xhr.send("username=" + username);*/
+        // 为了方便设置jQuery，最好使用json对象来传递各种参数
+        var username = document.getElementById("username").value;
+        $.ajax({
+            method : "POST",
+            url : "/first/ajaxrequest9",
+            async : true,
+            data : "username=" + username,
+            // 响应回来之后，对于客户端来说要拿到响应的数据，然后解析数据，显示到页面上
+            // 设置function到json当中，成功解析服务器数据时调用函数
+            success : function (json) {
+                document.getElementById("mydiv").innerHTML = json.username;
+            }
+        });
+    }
+  }
+  // 准备封装ajax请求代码到jQuery库当中
+
+</script>
+<!--点击按钮发送ajax post请求，将结果返回到div当中-->
+<button id="btn">发送请求</button>
+用户名:<input type="text" id="username"><br>
+<div id="mydiv"></div>
+
+</body>
+</html>
