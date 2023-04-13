@@ -10,11 +10,13 @@
     #btn {
 
     }
+
     /*类选择器*/
     .myclass {
 
     }
-/*    通过类似的想法，通过某种方式获得document.getElementById */
+
+    /*    通过类似的想法，通过某种方式获得document.getElementById */
 </style>
 <!--这里封装的jQuery只是运用前端，跟后端没有关系，方便前端写代码-->
 <script type="text/javascript">
@@ -24,22 +26,41 @@
     // 设计思路来自css的语法 #id可以获得这个元素
     function jQuery(selector) {
         // selector可能是#id,也可以是其它选择器，例如.class
-        if (selector.charAt(0) == '#') {
-            // selector是一个id选择器 因为id是#id开始的
-            var domObj = document.getElementById(selector.substring(1)); // 从第二位开始截string
-            return domObj;
+
+        //
+        if (typeof selector == "string") {
+            if (selector.charAt(0) == '#') {
+                // selector是一个id选择器 因为id是#id开始的
+                var domObj = document.getElementById(selector.substring(1)); // 从第二位开始截string
+                return domObj;
+            }
+        }
+
+        // 页面加载完毕之后，加载函数
+        if (typeof selector == "function") {
+            // 当这个选择器是一个函数的时候，使它在页面加载完成的时候执行
+            window.onload = selector;
         }
     }
 
     // 将jQuery又用一个标识符来表示
     $ = jQuery;
+    //-------------------------------------以上为封装-----------------------------------------------
 
-    window.onload = function () {
+   /* window.onload = function () {
         // 将document.getElementById()改成传入参数以#开始的jQuery函数
         $("#btn").onclick = function () {
             $("#div1").innerHTML = "<font color='red'>用户名不可用...</font>"
         }
-    }
+    }*/
+    // 进一步改写,小括号里面的是匿名函数，一开始jQuery执行的是加载函数，然后执行函数的内部内容，给按钮绑定函数
+
+    // $(function(){})就表示在页面加载完毕之后，执行括号里面的回调函数
+    $(function () {
+        $("#btn").onclick = function () {
+            $("#div1").innerHTML = "<font color='red'>...用户名不可用...</font>"
+        }
+    })
 </script>
 
 <button id="btn">显示信息</button>
