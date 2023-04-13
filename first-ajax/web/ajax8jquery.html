@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>手动封装JS库jQuery</title>
+</head>
+<body>
+<style type="text/css">
+    /*id选择器*/
+    #btn {
+
+    }
+    /*类选择器*/
+    .myclass {
+
+    }
+/*    通过类似的想法，通过某种方式获得document.getElementById */
+</style>
+<!--这里封装的jQuery只是运用前端，跟后端没有关系，方便前端写代码-->
+<script type="text/javascript">
+
+    // 封装一个函数，通过这个函数可以获取页面上中的节点，这个函数叫做jQuery
+    // 封装的代码是：根据id来获取元素 document.getElementById
+    // 设计思路来自css的语法 #id可以获得这个元素
+    function jQuery(selector) {
+        // selector可能是#id,也可以是其它选择器，例如.class
+        if (selector.charAt(0) == '#') {
+            // selector是一个id选择器 因为id是#id开始的
+            var domObj = document.getElementById(selector.substring(1)); // 从第二位开始截string
+            return domObj;
+        }
+    }
+
+    // 将jQuery又用一个标识符来表示
+    $ = jQuery;
+
+    window.onload = function () {
+        // 将document.getElementById()改成传入参数以#开始的jQuery函数
+        $("#btn").onclick = function () {
+            $("#div1").innerHTML = "<font color='red'>用户名不可用...</font>"
+        }
+    }
+</script>
+
+<button id="btn">显示信息</button>
+
+<div id="div1"></div>
+<!--
+<input type="checkbox" name="hobby">
+<input type="checkbox" name="hobby">
+
+<span class="myclass"></span>-->
+
+</body>
+</html>
