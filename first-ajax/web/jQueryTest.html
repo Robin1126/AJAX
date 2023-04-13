@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试jQuery库，本质上就是JS的库</title>
+</head>
+<body>
+
+<!--引进jQuery库-->
+<script type="text/javascript" src="js/jQuery_1.0.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btn").click(function () {
+            alert("hello!")
+            // 获取文本框内容
+            var usercode = $("#usercode").val();
+            alert(usercode);
+            // 修改文本框内容
+            // $("#usercode")最后返回的是一个jQuery对象，然后通过.val()调用其中的方法
+            $("#usercode").val("布布");
+            // 设置div内容
+            $("#div1").html("<font color='red'>hello!</font>")
+        })
+    })
+</script>
+
+<button id="btn">hello</button>
+<br>
+<input type="text" id="usercode"><br>
+<div id="div1"></div>
+</body>
+</html>

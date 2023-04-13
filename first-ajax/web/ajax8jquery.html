@@ -31,8 +31,11 @@
         if (typeof selector == "string") {
             if (selector.charAt(0) == '#') {
                 // selector是一个id选择器 因为id是#id开始的
-                var domObj = document.getElementById(selector.substring(1)); // 从第二位开始截string
-                return domObj;
+                // 去掉var作为全局变量，可以在整个页面中使用
+                // 这里就是创造了一个全局变量，用来代替document.getElementById(xxx)
+                domObj = document.getElementById(selector.substring(1)); // 从第二位开始截string
+                // 利用新的jQuery对象去使用.html方法
+                return new jQuery();
             }
         }
 
@@ -40,6 +43,29 @@
         if (typeof selector == "function") {
             // 当这个选择器是一个函数的时候，使它在页面加载完成的时候执行
             window.onload = selector;
+        }
+
+        // 在jQuery类中定义一个html()函数，用来代替 domObj.innerHTML = "xxx"
+        // 这是js在类中定义实例方法
+        this.html = function (htmlStr) {
+            domObj.innerHTML = htmlStr;
+        }
+
+        // 定义一个click函数，传入的是一个function，代替 domObj.onclick = function () {...}
+        this.click = function (func) {
+            domObj.onclick = func;
+        }
+
+        // 定义获取元素value的function
+        this.val = function (v) {
+            if (v != undefined) {
+                // 带有参数的时候是修改某个id中的value
+                domObj.value = v;
+            } else {
+                return domObj.value;
+            }
+
+
         }
     }
 
@@ -56,12 +82,28 @@
     // 进一步改写,小括号里面的是匿名函数，一开始jQuery执行的是加载函数，然后执行函数的内部内容，给按钮绑定函数
 
     // $(function(){})就表示在页面加载完毕之后，执行括号里面的回调函数
-    $(function () {
+   /* $(function () {
         $("#btn").onclick = function () {
             $("#div1").innerHTML = "<font color='red'>...用户名不可用...</font>"
         }
+    })*/
+    // 现在想将innerHTML这个属性改成一个方法
+    // 注意onclick也要封装
+    $(function () {
+        // 注意封装之后的$("#btn")返回的是一个jQuery对象，原来的onclick之类的方法都不能用了，要重新封装
+        $("#btn").click(function () {
+            $("#div1").html("<font color='red'>~~~用户名不可用~~~</font>");
+
+            // 获取用户名,将属性值封装成方法
+            var username = $("#username").val();
+            alert(username);
+
+            $("#username").val("hi");
+        })
     })
 </script>
+
+用户名：<input type="text" id="username">
 
 <button id="btn">显示信息</button>
 
