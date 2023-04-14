@@ -2,12 +2,12 @@
   <artifact type="exploded-war" name="ajax_area:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/ajax_area_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="ajax_area/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="ajax_area" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="ajax_area/web/Web" />
     </root>
   </artifact>
 </component>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>A服务器主页</title>
+</head>
+<body>
+<!--超链接和表单提交都是没有问题可以完成跨域访问的-->
+<a href="Http://localhost:8081/B">跳转到B服务器主页</a><br>
+<!--提交表单的方式访问-->
+<form action="Http://localhost:8081/B/reg" method="post">
+    用户名：<input type="text" name="username"><br>
+    密码：<input type="password" name="password"><br>
+    <input type="submit" value="提交">
+
+    <!--    通过js代码中的window.location.href/document.location.href也可以访问连接-->
+    <!--img标签也是可以跨域的-->
+    <!--    js文件也是可以跨域加载的-->
+</form>
+</body>
+</html>
