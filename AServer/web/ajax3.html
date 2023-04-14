@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsonp跨域</title>
+</head>
+<body>
+<!--<script type="text/javascript" src="http://localhost:8081/B/hello?fun=sayHello"></script>-->
+<!--本质上就是通过js标签中的src来实现的，只不过后端回复的是一个带填充的json，跟ajax没关系，投机取巧，达到局部刷新的效果-->
+
+<script type="text/javascript">
+
+    sayHello = (data) => {
+        document.getElementById("mydiv").innerHTML = data.name;
+    }
+
+// 点击按钮，产生一段js标签，当中src属性可以向后端发送请求
+    window.onload = () => {
+        document.getElementById("btn").onclick = () => {
+            // 加载script元素
+
+            // 创建script元素
+            const htmlScriptElement = document.createElement("script");
+            // 设置script元素的type属性
+            htmlScriptElement.type = "text/javascript";
+            // 设置script元素的src属性
+            htmlScriptElement.src = "http://localhost:8081/B/jsonp1?fun=sayHello";
+            // 将script对象添加到body标签中（这一步就是加载script）
+            // 点击的时候，script元素就会被加载到body里面去执行！同时就通过src发送了请求
+            document.getElementsByTagName("body")[0].appendChild(htmlScriptElement);
+
+        }
+    }
+</script>
+<button id="btn">jsonp解决跨域问题，达到ajax局部刷新的效果</button>
+
+<div id="mydiv"></div>
+</body>
+</html>

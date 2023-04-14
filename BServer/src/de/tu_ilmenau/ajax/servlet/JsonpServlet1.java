@@ -29,6 +29,6 @@ public class JsonpServlet1 extends HttpServlet {
 
         // 动态获取函数名，再加上json字符串
         String fun = request.getParameter("fun");
-        out.print(fun + "({\"name\" : \"lbb\"})");
+        out.print(fun + "({\"name\" : \"布布\"})");
     }
 }
