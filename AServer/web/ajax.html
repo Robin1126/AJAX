@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试ajax请求跨域</title>
+</head>
+<body>
+
+<script type="text/javascript">
+    /*
+      ajax默认不能跨域访问，因为存在安全性的问题
+      只能在同源中进行共享XmlHttpRequest
+      同源有三要素：1.协议相同 2.域名相同 3.端口相同
+      CORS policy 会阻止这个请求
+      但是实际上很多服务器都是分布式的，需要跨域访问。
+      使用ES6箭头函数
+     */
+    window.onload = () => {
+        document.getElementById("btn").onclick = () => {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        document.getElementById("div1").innerHTML = xhr.responseText;
+                    } else {
+                        alert(xhr.status);
+                    }
+                }
+            }
+            xhr.open("GET", "http://localhost:8081/B/hello", true);
+            xhr.send();
+        }
+    }
+</script>
+
+<button id="btn">发送ajax请求</button>
+<div id="div1"></div>
+</body>
+</html>
