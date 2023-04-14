@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsonp实现跨域</title>
+</head>
+<body>
+<script type="text/javascript">
+    sayHello = (data) => {
+        alert("Hello! " + data.name);
+    }
+</script>
+<!--script标签是可以加载servlet的，但是不用超链接是因为点击超链接会跳转新页面，不能实现局部刷新-->
+<!--后端可以响应一段js代码的字符串，前端负责解析执行-->
+<script type="text/javascript" src="http://localhost:8081/B/jsonp1?fun=sayHello">
+
+</script>
+</body>
+</html>
