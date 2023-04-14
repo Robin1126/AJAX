@@ -20,6 +20,9 @@ function jQuery(selector) {
     this.click = function (func) {
         domObj.onclick = func;
     }
+    this.change = function (func) {
+        domObj.onchange = func;
+    }
     this.val = function (v) {
         if (v != undefined) {
             domObj.value = v;

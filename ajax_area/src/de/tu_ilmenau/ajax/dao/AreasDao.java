@@ -10,4 +10,5 @@ import java.util.ArrayList;
  */
 public interface AreasDao {
     ArrayList<Area> selectAllProv();
+    ArrayList<Area> selectAllCity(String pcode);
 }

@@ -32,6 +32,30 @@
                 $("#province").html(html);
             }
         })
+        // 只要change发生就发送ajax请求
+        $("#province").change(function () {
+            // alert(this.value);
+            $.ajax({
+                method: "get",
+                url: "/ajax/listCity",
+                async: true,
+                data: "t=" + new Date().getTime() + "&pcode=" + this.value,
+                success: function (jsonArr) {
+                    // json应该是 [{"code":"001","name":"广东省"},{"code":"002","name":"湖南省"},{"code":"003","name":"台湾省"}]
+                    // 以上格式的json是我们希望服务器返回解析出来的
+                    // 取出对应的数据,放到option标签里面
+                    // 拼接html
+                    var html = "<option value=''>---请选择一个城市---</option>"
+                    for (var i = 0; i < jsonArr.length; i++) {
+                        // 每一项都是一个区域对象
+                        var area = jsonArr[i];
+                        html += "<option value='" + area.code + "'>" + area.name + "</option>"
+                    }
+                    // 拼接完毕之后,放到对应的标签里面
+                    $("#city").html(html);
+                }
+            })
+        })
 
     })
 </script>
@@ -40,6 +64,10 @@
     <!--<option value="">&#45;&#45;请选择省份&#45;&#45;</option>
     <option value="001">广东省</option>
     <option value="002">湖南省</option>-->
+
+</select>
+
+<select id="city">
 
 </select>
 

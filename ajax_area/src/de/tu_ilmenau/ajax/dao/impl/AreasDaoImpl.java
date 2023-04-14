@@ -16,6 +16,33 @@ import java.util.ArrayList;
  */
 public class AreasDaoImpl implements AreasDao {
     @Override
+    public ArrayList<Area> selectAllCity(String pcode) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Area> list = new ArrayList<>();
+
+
+
+        try {
+            conn = DBUtil.getConnection();
+            String sql = "select code,name,pcode from t_area where pcode = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,pcode);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Area area = new Area(rs.getString("code"),rs.getString("name"),rs.getString("pcode"));
+                list.add(area);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBUtil.close(conn, ps, rs);
+        }
+        return list;
+    }
+
+    @Override
     public ArrayList<Area> selectAllProv() {
         Connection conn = null;
         PreparedStatement ps = null;

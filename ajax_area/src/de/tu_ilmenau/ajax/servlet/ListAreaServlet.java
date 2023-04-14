@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Author : Binbin Luo
  * Date : 13.04.2023
  */
-@WebServlet("/listArea")
+@WebServlet({"/listArea","/listCity"})
 public class ListAreaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -26,14 +26,27 @@ public class ListAreaServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        // 连接数据库,获取结果
-        ArrayList<Area> list = new AreasDaoImpl().selectAllProv();
+        String servletPath = request.getServletPath();
 
-        // 转换为json格式的字符串返回
-        String jsonList = JSON.toJSONString(list);
+        if ("/listArea".equals(servletPath)) {
+            // 连接数据库,获取结果
+            ArrayList<Area> list = new AreasDaoImpl().selectAllProv();
 
-        // 返回json对象
-        out.print(jsonList);
+            // 转换为json格式的字符串返回
+            String jsonList = JSON.toJSONString(list);
 
+            // 返回json对象
+            out.print(jsonList);
+        }
+
+        if ("/listCity".equals(servletPath)) {
+            String pcode = request.getParameter("pcode");
+            ArrayList<Area> list = new AreasDaoImpl().selectAllCity(pcode);
+
+            // 转换称为json格式的字符串
+            String jsonList = JSON.toJSONString(list);
+            // 返回json
+            out.print(jsonList);
+        }
     }
 }
