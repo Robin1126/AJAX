@@ -11,23 +11,16 @@ import java.io.PrintWriter;
 
 /**
  * Author : Binbin Luo
- * Date : 14.04.2023
+ * Date : 15.04.2023
  */
-@WebServlet("/hello")
-public class HelloServlet extends HttpServlet {
+@WebServlet("/react")
+public class ProxyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // 设置响应头允许ajax跨域访问
-        response.setHeader("Access-Control-Allow-Origin","http://localhost:8080");
-//        response.setHeader("Access-Control-Allow-Origin","*"); 这种是允许所有来源的的ajax请求，不推荐
-
-        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-
         PrintWriter out = response.getWriter();
-        out.print("<h1>Hello!</h1>");
 
+        out.print("<font size='20px' color='purple'>hi! Ajax!</font>");
     }
 }

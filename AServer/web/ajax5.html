@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用代理实现ajax跨域请求</title>
+</head>
+<body>
+
+<script type="text/javascript">
+  window.onload = () => {
+    document.getElementById("btn").onclick = () => {
+      // 1. 创建xhr
+      let xhr = new XMLHttpRequest();
+      // 2. 绑定回调函数
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            document.getElementById("mydiv").innerHTML = xhr.responseText;
+            // document.getElementById("mydiv").innerHTML = "<h1>hello</h1>"
+          }
+        }
+      }
+      // 3. 建立通道
+      xhr.open("GET","/A/proxy",true);
+      // 4. 发送请求
+      xhr.send();
+    }
+  }
+</script>
+
+<button id="btn">点击发送ajax请求</button>
+<div id="mydiv"></div>
+<font size=""
+
+
+</body>
+</html>
